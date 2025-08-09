@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% block title %}Criar Anúncio{% endblock %}{% block content %}
+<h2>Criar Anúncio</h2>
+<form method="post">
+  <label>Título: <input name="titulo"></label><br>
+  <label>Descrição: <textarea name="descricao"></textarea></label><br>
+  <label>Preço: <input name="preco" type="number" step="0.01"></label><br>
+  <button type="submit">Publicar</button>
+</form>
+{% endblock %}

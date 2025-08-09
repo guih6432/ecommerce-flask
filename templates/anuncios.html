@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block title %}Anúncios{% endblock %}{% block content %}
+<h2>Anúncios</h2>
+<ul>
+  <li><a href="{{ url_for('anuncio_detalhe', id_anuncio=1) }}">Exemplo de anúncio 1</a></li>
+  <li><a href="{{ url_for('anuncio_detalhe', id_anuncio=2) }}">Exemplo de anúncio 2</a></li>
+</ul>
+{% endblock %}

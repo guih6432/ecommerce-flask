@@ -1,0 +1,8 @@
+{% extends 'base.html' %}{% block title %}Perfil{% endblock %}{% block content %}
+<h2>Meu Perfil</h2>
+<ul>
+  <li><a href="{{ url_for('anuncios') }}">Meus anúncios</a></li>
+  <li><a href="{{ url_for('favoroites') }}">Favoritos</a></li>
+  <li><a href="{{ url_for('perfil') }}">Relatório de vendas</a></li>
+</ul>
+{% endblock %}

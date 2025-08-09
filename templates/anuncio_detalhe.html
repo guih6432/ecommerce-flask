@@ -1,0 +1,10 @@
+{% extends 'base.html' %}{% block title %}Detalhe{% endblock %}{% block content %}
+<h2>Anúncio #{{ id_anuncio }}</h2>
+<form action="{{ url_for('preguntar', id_anuncio=id_anuncio) }}" method="post">
+  <label>Pergunta: <input name="pergunta"></label>
+  <button type="submit">Enviar pergunta</button>
+</form>
+<form action="{{ url_for('comprar', id_anuncio=id_anuncio) }}" method="post">
+  <button type="submit">Comprar</button>
+</form>
+{% endblock %}
