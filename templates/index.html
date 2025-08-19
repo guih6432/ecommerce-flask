@@ -1,4 +1,17 @@
-{% extends 'base.html' %}{% block title %}Home - E-commerce{% endblock %}{% block content %}
+{% extends 'base.html' %}
+{% block title %}Home - E-commerce{% endblock %}
+
+{% block content %}
 <h1>Bem-vindo à plataforma de e-commerce</h1>
-<p>Procure por categorias ou acesse seus anúncios.</p>
+<p>Explore os anúncios, gerencie seu perfil e veja seus favoritos.</p>
+
+<h3>Acesso rápido</h3>
+<ul>
+    <li><a href="{{ url_for('listar_usuarios') }}">Gerenciar Usuários</a></li>
+    <li><a href="{{ url_for('listar_anuncios') }}">Ver Anúncios</a></li>
+    <li><a href="{{ url_for('listar_perguntas') }}">Perguntas</a></li>
+    <li><a href="{{ url_for('listar_favoritos') }}">Favoritos</a></li>
+    <li><a href="{{ url_for('listar_compras') }}">Compras</a></li>
+</ul>
+
 {% endblock %}

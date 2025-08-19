@@ -1,7 +1,39 @@
-{% extends 'base.html' %}{% block title %}Anúncios{% endblock %}{% block content %}
+{% extends 'base.html' %}
+{% block title %}Anúncios{% endblock %}
+
+{% block content %}
 <h2>Anúncios</h2>
-<ul>
-  <li><a href="{{ url_for('anuncio_detalhe', id_anuncio=1) }}">Exemplo de anúncio 1</a></li>
-  <li><a href="{{ url_for('anuncio_detalhe', id_anuncio=2) }}">Exemplo de anúncio 2</a></li>
-</ul>
+<a href="{{ url_for('criar_anuncio') }}">Novo Anúncio</a><br><br>
+
+<table border="1" cellpadding="5">
+  <tr>
+    <th>ID</th>
+    <th>Título</th>
+    <th>Preço</th>
+    <th>Vendedor</th>
+    <th>Ações</th>
+  </tr>
+  {% for anuncio in anuncios %}
+  <tr>
+    <td>{{ anuncio.id }}</td>
+    <td>{{ anuncio.titulo }}</td>
+    <td>R$ {{ anuncio.preco }}</td>
+    <td>{{ anuncio.usuario.nome if anuncio.usuario else 'Desconhecido' }}</td>
+    <td>
+      <a href="{{ url_for('anuncio_detalhe', id_anuncio=anuncio.id) }}">Detalhes</a> |
+      <a href="{{ url_for('editar_anuncio', id=anuncio.id) }}">Editar</a> |
+      <form action="{{ url_for('deletar_anuncio', id=anuncio.id) }}" method="POST" style="display:inline;">
+        <button type="submit" onclick="return confirm('Confirma exclusão?')">Deletar</button>
+      </form> |
+      <form action="{{ url_for('criar_favorito', id_anuncio=anuncio.id) }}" method="POST" style="display:inline;">
+        <button type="submit">Favoritar</button>
+      </form>
+    </td>
+  </tr>
+  {% else %}
+  <tr>
+    <td colspan="5">Nenhum anúncio cadastrado.</td>
+  </tr>
+  {% endfor %}
+</table>
 {% endblock %}

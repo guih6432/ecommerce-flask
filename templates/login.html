@@ -1,8 +1,20 @@
-{% extends 'base.html' %}{% block title %}Login{% endblock %}{% block content %}
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
 <h2>Login</h2>
+
 <form method="post">
-  <label>Email: <input type="email" name="email"></label><br>
-  <label>Senha: <input type="password" name="senha"></label><br>
+  <label>Email:<br>
+    <input type="email" name="email" required placeholder="Digite seu email">
+  </label><br><br>
+
+  <label>Senha:<br>
+    <input type="password" name="senha" required placeholder="Digite sua senha">
+  </label><br><br>
+
   <button type="submit">Entrar</button>
 </form>
+
+<p>Ainda não possui conta? <a href="{{ url_for('criar_usuario') }}">Cadastre-se aqui</a>.</p>
 {% endblock %}

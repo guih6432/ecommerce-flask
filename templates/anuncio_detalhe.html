@@ -1,10 +1,34 @@
-{% extends 'base.html' %}{% block title %}Detalhe{% endblock %}{% block content %}
-<h2>Anúncio #{{ id_anuncio }}</h2>
-<form action="{{ url_for('preguntar', id_anuncio=id_anuncio) }}" method="post">
-  <label>Pergunta: <input name="pergunta"></label>
-  <button type="submit">Enviar pergunta</button>
+{% extends 'base.html' %}
+{% block title %}Detalhe do Anúncio{% endblock %}
+
+{% block content %}
+<h2>{{ anuncio.titulo }}</h2>
+<p><strong>Descrição:</strong> {{ anuncio.descricao }}</p>
+<p><strong>Preço:</strong> R$ {{ anuncio.preco }}</p>
+<p><strong>Vendedor:</strong> {{ anuncio.usuario.nome if anuncio.usuario else 'Desconhecido' }}</p>
+
+<hr>
+<h3>Perguntas</h3>
+<ul>
+  {% for pergunta in perguntas %}
+    <li>{{ pergunta.texto }}</li>
+  {% else %}
+    <li>Nenhuma pergunta ainda.</li>
+  {% endfor %}
+</ul>
+
+<hr>
+<h3>Faça uma pergunta</h3>
+<form action="{{ url_for('criar_pergunta', id_anuncio=anuncio.id) }}" method="post">
+  <label>Pergunta: <input type="text" name="texto" required></label>
+  <button type="submit">Enviar</button>
 </form>
-<form action="{{ url_for('comprar', id_anuncio=id_anuncio) }}" method="post">
+
+<form action="{{ url_for('comprar', id_anuncio=anuncio.id) }}" method="post" style="margin-top:10px;">
   <button type="submit">Comprar</button>
+</form>
+
+<form action="{{ url_for('criar_favorito', id_anuncio=anuncio.id) }}" method="post" style="margin-top:10px;">
+  <button type="submit">Adicionar aos Favoritos</button>
 </form>
 {% endblock %}

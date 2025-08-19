@@ -1,9 +1,34 @@
-{% extends 'base.html' %}{% block title %}Criar Anúncio{% endblock %}{% block content %}
-<h2>Criar Anúncio</h2>
+{% extends 'base.html' %}
+{% block title %}{{ 'Editar' if anuncio else 'Criar' }} Anúncio{% endblock %}
+
+{% block content %}
+<h2>{{ 'Editar' if anuncio else 'Criar' }} Anúncio</h2>
+
 <form method="post">
-  <label>Título: <input name="titulo"></label><br>
-  <label>Descrição: <textarea name="descricao"></textarea></label><br>
-  <label>Preço: <input name="preco" type="number" step="0.01"></label><br>
-  <button type="submit">Publicar</button>
+  <label>Título:<br>
+    <input type="text" name="titulo" value="{{ anuncio.titulo if anuncio else '' }}" required placeholder="Digite o título do anúncio">
+  </label><br><br>
+
+  <label>Descrição:<br>
+    <textarea name="descricao" required placeholder="Digite a descrição">{{ anuncio.descricao if anuncio else '' }}</textarea>
+  </label><br><br>
+
+  <label>Preço:<br>
+    <input type="number" name="preco" step="0.01" value="{{ anuncio.preco if anuncio else '' }}" required>
+  </label><br><br>
+
+  <label>Usuário:<br>
+    <select name="usuario_id" required>
+      {% for u in usuarios %}
+        <option value="{{ u.id }}" {% if anuncio and anuncio.usuario_id == u.id %}selected{% endif %}>
+          {{ u.nome }}
+        </option>
+      {% endfor %}
+    </select>
+  </label><br><br>
+
+  <button type="submit">{{ 'Atualizar' if anuncio else 'Publicar' }}</button>
 </form>
+
+<a href="{{ url_for('listar_anuncios') }}" style="margin-top:10px; display:inline-block;">Voltar</a>
 {% endblock %}

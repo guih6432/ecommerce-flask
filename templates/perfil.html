@@ -1,8 +1,34 @@
-{% extends 'base.html' %}{% block title %}Perfil{% endblock %}{% block content %}
+{% extends 'base.html' %}
+{% block title %}Perfil{% endblock %}
+
+{% block content %}
 <h2>Meu Perfil</h2>
+
+<p><strong>Nome:</strong> {{ usuario.nome }}</p>
+<p><strong>Email:</strong> {{ usuario.email }}</p>
+
+<hr>
+<h3>Meus Anúncios</h3>
+{% if anuncios %}
 <ul>
-  <li><a href="{{ url_for('anuncios') }}">Meus anúncios</a></li>
-  <li><a href="{{ url_for('favoroites') }}">Favoritos</a></li>
-  <li><a href="{{ url_for('perfil') }}">Relatório de vendas</a></li>
+    {% for a in anuncios %}
+    <li>
+        {{ a.titulo }} - R$ {{ a.preco }}
+        [<a href="{{ url_for('editar_anuncio', id=a.id) }}">Editar</a>]
+        [<form action="{{ url_for('deletar_anuncio', id=a.id) }}" method="POST" style="display:inline;">
+            <button type="submit" onclick="return confirm('Deseja deletar este anúncio?')">Deletar</button>
+        </form>]
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Você ainda não possui anúncios.</p>
+{% endif %}
+
+<hr>
+<h3>Outras Ações</h3>
+<ul>
+    <li><a href="{{ url_for('listar_favoritos') }}">Meus Favoritos</a></li>
+    <li><a href="{{ url_for('relatorio_vendas', usuario_id=usuario.id) }}">Relatório de Vendas</a></li>
 </ul>
 {% endblock %}

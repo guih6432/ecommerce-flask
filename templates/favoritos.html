@@ -1,4 +1,32 @@
-{% extends 'base.html' %}{% block title %}Favoritos{% endblock %}{% block content %}
+{% extends 'base.html' %}
+{% block title %}Favoritos{% endblock %}
+
+{% block content %}
 <h2>Favoritos</h2>
-<p>Lista de anúncios favoritados.</p>
+
+<table border="1" cellpadding="5">
+  <tr>
+    <th>ID</th>
+    <th>Usuário</th>
+    <th>Anúncio</th>
+    <th>Ações</th>
+  </tr>
+  {% for fav in favoritos %}
+  <tr>
+    <td>{{ fav.id }}</td>
+    <td>{{ fav.usuario.nome if fav.usuario else 'Desconhecido' }}</td>
+    <td>{{ fav.anuncio.titulo if fav.anuncio else 'Desconhecido' }}</td>
+    <td>
+      <form action="{{ url_for('deletar_favorito', id=fav.id) }}" method="POST" style="display:inline;">
+        <button type="submit" onclick="return confirm('Remover dos favoritos?')">Remover</button>
+      </form>
+    </td>
+  </tr>
+  {% else %}
+  <tr>
+    <td colspan="4">Nenhum favorito cadastrado.</td>
+  </tr>
+  {% endfor %}
+</table>
+
 {% endblock %}
